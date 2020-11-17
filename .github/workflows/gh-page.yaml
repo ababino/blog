@@ -1,8 +1,6 @@
 name: GH-Pages Status
 on:
   page_build:
-  schedule:
-    - cron: '25 13 * * *'
   
 jobs:
   see-page-build-payload:
