@@ -1,0 +1,25 @@
+name: update
+on:
+  schedule:
+  - cron: '8 13 * * *'
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        ref: master
+    - uses: actions/setup-python@v1
+      with:
+        python-version: '3.8'
+        architecture: 'x64'
+    - name: Install the library
+      run: |
+        pip install jupyter
+        pip install babino2020masks
+    - name: Update daily
+      run: jupyter nbconvert --to notebook --execute --inplace _notebooks/2020-11-16-daily.ipynb
+    - uses: stefanzweifel/git-auto-commit-action@v4
+      with:
+        commit_message: automatic daily update
+        branch: master
