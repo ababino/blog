@@ -1,7 +1,7 @@
 name: update
 on:
   schedule:
-  - cron: '7 13 * * *'
+  - cron: '*/5 * * * *'
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -24,3 +24,16 @@ jobs:
         commit_message: automatic daily update
         branch: master
         push_options: '--force'
+    - name: convert notebooks and word docs to posts
+      uses: fastai/fastpages@master
+    - name: Jekyll build
+      uses: docker://jekyll/jekyll
+      with:
+        args: jekyll build
+    - name: Deploy
+      uses: peaceiris/actions-gh-pages@v3
+      if: github.event_name == 'push'
+      with:
+        deploy_key: ${{ secrets.SSH_DEPLOY_KEY }}
+        publish_branch: gh-pages
+        publish_dir: ./_site
