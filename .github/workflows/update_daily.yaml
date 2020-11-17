@@ -25,7 +25,6 @@ jobs:
         branch: master
         push_options: '--force'
     - name: Check if secret exists
-      if: github.event_name == 'push'
       run: |
         if [ -z "$deploy_key" ]
         then
