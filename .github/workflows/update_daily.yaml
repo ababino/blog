@@ -24,7 +24,6 @@ jobs:
         commit_message: automatic daily update
         branch: master
         push_options: '--force'
-    - name: convert notebooks and word docs to posts
     - name: Check if secret exists
       if: github.event_name == 'push'
       run: |
