@@ -1,8 +1,5 @@
 name: Check Configurations
-on: 
-  push:
-  schedule:
-    - cron: '15 13 * * *'
+on:  push
 
 jobs:
  check-config:
